@@ -37,7 +37,7 @@ import (
 	"github.com/ory/hydra/internal"
 	"github.com/ory/hydra/jwk"
 	"github.com/ory/hydra/x"
-	"github.com/ory/hydra/x/contextx"
+	"github.com/ory/x/contextx"
 
 	"gopkg.in/square/go-jose.v2/cryptosigner"
 
@@ -182,7 +182,7 @@ func TestExcludeOpaquePrivateKeys(t *testing.T) {
 }
 
 func TestGetOrGenerateKeys(t *testing.T) {
-	reg := internal.NewMockedRegistry(t, &contextx.DefaultContextualizer{})
+	reg := internal.NewMockedRegistry(t, &contextx.Default{})
 	ctrl := gomock.NewController(t)
 	keyManager := NewMockManager(ctrl)
 	defer ctrl.Finish()

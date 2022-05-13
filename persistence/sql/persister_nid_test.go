@@ -19,7 +19,7 @@ import (
 	"github.com/ory/hydra/oauth2/trust"
 	persistencesql "github.com/ory/hydra/persistence/sql"
 	"github.com/ory/hydra/x"
-	"github.com/ory/hydra/x/contextx"
+	"github.com/ory/x/contextx"
 	"github.com/ory/x/dbal"
 	"github.com/ory/x/networkx"
 	"github.com/ory/x/sqlxx"
@@ -41,11 +41,11 @@ var _ PersisterTestSuite = PersisterTestSuite{}
 
 func (s *PersisterTestSuite) SetupSuite() {
 	s.registries = map[string]driver.Registry{
-		"memory": internal.NewRegistrySQLFromURL(s.T(), dbal.SQLiteSharedInMemory, true, &contextx.DefaultContextualizer{}),
+		"memory": internal.NewRegistrySQLFromURL(s.T(), dbal.NewSQLiteTestDatabase(s.T()), true, &contextx.Default{}),
 	}
 
 	if !testing.Short() {
-		s.registries["postgres"], s.registries["mysql"], s.registries["cockroach"], s.clean = internal.ConnectDatabases(s.T(), true, &contextx.DefaultContextualizer{})
+		s.registries["postgres"], s.registries["mysql"], s.registries["cockroach"], s.clean = internal.ConnectDatabases(s.T(), true, &contextx.Default{})
 	}
 
 	s.t1NID, s.t2NID = uuid.Must(uuid.NewV4()), uuid.Must(uuid.NewV4())
@@ -1977,7 +1977,7 @@ func (s *PersisterTestSuite) TestWithFallbackNetworkID() {
 	t := s.T()
 	for k, r := range s.registries {
 		t.Run(k, func(*testing.T) {
-			r.WithContextualizer(&contextx.DefaultContextualizer{})
+			r.WithContextualizer(&contextx.Default{})
 			store, ok := r.Persister().(*persistencesql.Persister)
 			if !ok {
 				t.Fatal("type assertion failed")

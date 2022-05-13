@@ -17,7 +17,7 @@ import (
 	"github.com/ory/hydra/jwk"
 	"github.com/ory/hydra/persistence"
 	"github.com/ory/hydra/x"
-	"github.com/ory/hydra/x/contextx"
+	"github.com/ory/x/contextx"
 	"github.com/ory/x/errorsx"
 	"github.com/ory/x/logrusx"
 	"github.com/ory/x/networkx"
@@ -39,7 +39,7 @@ type (
 		conn        *pop.Connection
 		mb          *popx.MigrationBox
 		r           Dependencies
-		config      *config.Provider
+		config      *config.DefaultProvider
 		l           *logrusx.Logger
 		fallbackNID uuid.UUID
 		p           *networkx.Manager
@@ -47,8 +47,7 @@ type (
 	Dependencies interface {
 		ClientHasher() fosite.Hasher
 		KeyCipher() *jwk.AEAD
-		KeyGenerators() map[string]jwk.KeyGenerator
-		contextx.ContextualizerProvider
+		contextx.Provider
 		x.RegistryLogger
 		x.TracingProvider
 	}
@@ -92,7 +91,7 @@ func (p *Persister) Rollback(ctx context.Context) error {
 	return errorsx.WithStack(c.TX.Rollback())
 }
 
-func NewPersister(ctx context.Context, c *pop.Connection, r Dependencies, config *config.Provider, l *logrusx.Logger) (*Persister, error) {
+func NewPersister(ctx context.Context, c *pop.Connection, r Dependencies, config *config.DefaultProvider, l *logrusx.Logger) (*Persister, error) {
 	mb, err := popx.NewMigrationBox(migrations, popx.NewMigrator(c, r.Logger(), r.Tracer(ctx), 0))
 	if err != nil {
 		return nil, errorsx.WithStack(err)

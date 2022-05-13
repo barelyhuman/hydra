@@ -1,6 +1,7 @@
 package config
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strings"
@@ -43,24 +44,24 @@ func (iface *servePrefix) Key(suffix string) string {
 	return fmt.Sprintf("%s.%s", iface.prefix, suffix)
 }
 
-func (p *Provider) ListenOn(iface ServeInterface) string {
-	host, port := p.host(iface), p.port(iface)
+func (p *DefaultProvider) ListenOn(ctx context.Context, iface ServeInterface) string {
+	host, port := p.host(ctx, iface), p.port(ctx, iface)
 	if strings.HasPrefix(host, "unix:") {
 		return host
 	}
 	return fmt.Sprintf("%s:%d", host, port)
 }
 
-func (p *Provider) SocketPermission(iface ServeInterface) *configx.UnixPermission {
+func (p *DefaultProvider) SocketPermission(ctx context.Context, iface ServeInterface) *configx.UnixPermission {
 	return &configx.UnixPermission{
-		Owner: p.p.String(iface.Key(KeySuffixSocketOwner)),
-		Group: p.p.String(iface.Key(KeySuffixSocketGroup)),
-		Mode:  os.FileMode(p.p.IntF(iface.Key(KeySuffixSocketMode), 0755)),
+		Owner: p.getConfig(ctx).String(iface.Key(KeySuffixSocketOwner)),
+		Group: p.getConfig(ctx).String(iface.Key(KeySuffixSocketGroup)),
+		Mode:  os.FileMode(p.getConfig(ctx).IntF(iface.Key(KeySuffixSocketMode), 0755)),
 	}
 }
 
-func (p *Provider) CORS(iface ServeInterface) (cors.Options, bool) {
-	return p.p.CORS(iface.Key(KeyRoot), cors.Options{
+func (p *DefaultProvider) CORS(ctx context.Context, iface ServeInterface) (cors.Options, bool) {
+	return p.getConfig(ctx).CORS(iface.Key(KeyRoot), cors.Options{
 		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
 		ExposedHeaders:   []string{"Content-Type"},
@@ -68,14 +69,14 @@ func (p *Provider) CORS(iface ServeInterface) (cors.Options, bool) {
 	})
 }
 
-func (p *Provider) DisableHealthAccessLog(iface ServeInterface) bool {
-	return p.p.Bool(iface.Key(KeySuffixDisableHealthAccessLog))
+func (p *DefaultProvider) DisableHealthAccessLog(ctx context.Context, iface ServeInterface) bool {
+	return p.getConfig(ctx).Bool(iface.Key(KeySuffixDisableHealthAccessLog))
 }
 
-func (p *Provider) host(iface ServeInterface) string {
-	return p.p.String(iface.Key(KeySuffixListenOnHost))
+func (p *DefaultProvider) host(ctx context.Context, iface ServeInterface) string {
+	return p.getConfig(ctx).String(iface.Key(KeySuffixListenOnHost))
 }
 
-func (p *Provider) port(iface ServeInterface) int {
-	return p.p.Int(iface.Key(KeySuffixListenOnPort))
+func (p *DefaultProvider) port(ctx context.Context, iface ServeInterface) int {
+	return p.getConfig(ctx).Int(iface.Key(KeySuffixListenOnPort))
 }
