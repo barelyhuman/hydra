@@ -2293,14 +2293,14 @@ components:
         grant_access_token_audience:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         grant_scope:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         handled_at:
           format: date-time
@@ -2320,10 +2320,11 @@ components:
         session:
           $ref: '#/components/schemas/consentRequestSession'
       type: object
-    StringSlicePipeDelimiter:
+    StringSliceJSONFormat:
       items:
         type: string
-      title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL string.
+      title: StringSliceJSONFormat represents []string{} which is encoded to/from
+        JSON for SQL storage.
       type: array
     UUID:
       format: uuid4
@@ -2333,14 +2334,14 @@ components:
         grant_access_token_audience:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         grant_scope:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         handled_at:
           format: date-time
@@ -2371,8 +2372,8 @@ components:
         amr:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         context:
           title: JSONRawMessage represents a json.RawMessage that works well with
@@ -2521,8 +2522,8 @@ components:
         amr:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         challenge:
           description: |-
@@ -2558,14 +2559,14 @@ components:
         requested_access_token_audience:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         requested_scope:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         skip:
           description: |-
@@ -2830,14 +2831,14 @@ components:
         requested_access_token_audience:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         requested_scope:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         session_id:
           description: |-
@@ -3013,14 +3014,14 @@ components:
         allowed_cors_origins:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         audience:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         backchannel_logout_session_required:
           description: |-
@@ -3066,8 +3067,8 @@ components:
         contacts:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         created_at:
           description: CreatedAt returns the timestamp of the client's creation.
@@ -3089,8 +3090,8 @@ components:
         grant_types:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         jwks:
           type: object
@@ -3124,14 +3125,14 @@ components:
         post_logout_redirect_uris:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         redirect_uris:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         registration_access_token:
           description: RegistrationAccessToken can be used to update, get, or delete
@@ -3149,14 +3150,14 @@ components:
         request_uris:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         response_types:
           items:
             type: string
-          title: StringSlicePipeDelimiter de/encodes the string slice to/from a SQL
-            string.
+          title: StringSliceJSONFormat represents []string{} which is encoded to/from
+            JSON for SQL storage.
           type: array
         scope:
           description: |-
